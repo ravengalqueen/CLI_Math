@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+
+import argparse
+
+def add(x, y):
+    return x + y
+
+def minus(x, y):
+    return x - y
+
+def times(x, y):
+    return x * y
+
+def divide(x, y):
+    if y == 0:
+        return "Error! Division by zero."
+    return x / y
+
+def main():
+    parser = argparse.ArgumentParser(description="Simple CLI Calculator")
+    subparsers = parser.add_subparsers(dest='command', help="Available commands")
+
+    # Add command
+    parser_add = subparsers.add_parser('add', help='Add two numbers')
+    parser_add.add_argument('x', type=float, help='First number')
+    parser_add.add_argument('y', type=float, help='Second number')
+
+    # Subtract command
+    parser_subtract = subparsers.add_parser('minus', help='Subtract second number from first')
+    parser_subtract.add_argument('x', type=float, help='First number')
+    parser_subtract.add_argument('y', type=float, help='Second number')
+
+    # Multiply command
+    parser_multiply = subparsers.add_parser('times', help='Multiply two numbers')
+    parser_multiply.add_argument('x', type=float, help='First number')
+    parser_multiply.add_argument('y', type=float, help='Second number')
+
+    # Divide command
+    parser_divide = subparsers.add_parser('divide', help='Divide first number by second')
+    parser_divide.add_argument('x', type=float, help='First number')
+    parser_divide.add_argument('y', type=float, help='Second number')
+
+    args = parser.parse_args()
+
+    if args.command == 'add':
+        print(f"Result: {add(args.x, args.y)}")
+    elif args.command == 'minus':
+        print(f"Result: {minus(args.x, args.y)}")
+    elif args.command == 'times':
+        print(f"Result: {times(args.x, args.y)}")
+    elif args.command == 'divide':
+        print(f"Result: {divide(args.x, args.y)}")
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
